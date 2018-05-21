@@ -52,7 +52,11 @@
 #include "PAGE_NetworkConfiguration.h"
 #include "example.h"
 #include "credentials.h"
-
+/*
+ * Credentials.h should have the following:
+ * #define mySSID "Your SSID"
+ * #define myPASSWORD "Your Pasword"
+ */
 #define ACCESS_POINT_NAME  "ESP_8266"
 #define ACCESS_POINT_PASSWORD  "12345678"
 #define AdminTimeOut 180  // Defines the Time in Seconds, when the Admin-Mode will be diabled
