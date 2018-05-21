@@ -50,7 +50,7 @@
 #include "Page_Information.h"
 #include "Page_General.h"
 #include "PAGE_NetworkConfiguration.h"
-#include "example.h"
+//#include "example.h"
 #include "credentials.h"
 /*
  * Credentials.h should have the following:
@@ -110,7 +110,7 @@ void setup ( void ) {
   ConfigureWifi();
 
 
-  server.on ( "/", processExample  );
+  server.on ( "/", processRoot  );
   server.on ( "/admin/filldynamicdata", filldynamicdata );
 
   server.on ( "/favicon.ico",   []() {
