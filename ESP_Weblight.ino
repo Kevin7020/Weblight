@@ -42,6 +42,7 @@
 /*
   Include the HTML, STYLE and Script "Pages"
 */
+#include "led.h"
 #include "Page_Root.h"
 #include "Page_Admin.h"
 #include "Page_Script.js.h"
@@ -61,7 +62,7 @@
 #define ACCESS_POINT_PASSWORD  "12345678"
 #define AdminTimeOut 180  // Defines the Time in Seconds, when the Admin-Mode will be diabled
 #define LED_BUILTIN 2
-#define PWM_LED 5
+
 
 
 void setup ( void ) {
@@ -145,7 +146,7 @@ void setup ( void ) {
   server.on ( "/admin/ntpvalues", send_NTP_configuration_values_html );
   server.on ( "/admin/generalvalues", send_general_configuration_values_html);
   server.on ( "/admin/devicename",     send_devicename_value_html);
-
+  server.on ( "/led", send_led_values_html ); //Basic function to call the test the PWM signal
 
 
 
@@ -158,25 +159,6 @@ void setup ( void ) {
   tkSecond.attach(1, Second_Tick);
   UDPNTPClient.begin(2390);  // Port for NTP receive
 }
-
-  void Led_fade( void ){
-    int brightness = 0;    // how bright the LED is
-    int fadeAmount = 5;    // how many points to fade the LED by
-
-    for (int i=0; i <= 3; i++){ // the loop routine
-      // set the brightness of pin PWM_LED:
-      analogWrite(PWM_LED, brightness);
-
-      // change the brightness for next time through the loop:
-      brightness = brightness + fadeAmount;
-
-      // reverse the direction of the fading at the ends of the fade:
-      if (brightness <= 0 || brightness >= 255) {
-        fadeAmount = -fadeAmount;
-      }
-      delay(30); // wait for 30 milliseconds to see the dimming effect
-    }
-  }
 
 void loop ( void ) {
   if (AdminEnabled)
@@ -228,7 +210,9 @@ void loop ( void ) {
   }
   server.handleClient();
 
-//cd
+/*
+ * Custom Code
+ */
 
   if (Refresh) {
     Refresh = false;
